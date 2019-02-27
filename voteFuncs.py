@@ -1,4 +1,5 @@
-# Main
+# Actual Voting Functions
+
 def vote_3(position_name, candidates, vote_cols, spreadsheet):
 	# Setup
 	winner = ["Your new", position_name, "is:", "", "with", "", "votes (out of", ""]
@@ -8,7 +9,6 @@ def vote_3(position_name, candidates, vote_cols, spreadsheet):
 	col2 = vote_cols[1]
 
 	list_of_lists = [i for i in spreadsheet if (i[1].title() not in candidates and i[col1]!="")]
-
 
 	# Count Initial Votes
 	for i in list_of_lists:
@@ -48,7 +48,6 @@ def vote_2(position_name, candidates, vote_col, spreadsheet):
 	num_of_votes = 0
 	col1 = vote_col[0]
 	list_of_lists = [i for i in spreadsheet if (i[2].title() not in candidates and i[col1]!="")]
-	#############I AHNGED THISSSSSSSSSS PLS FIX IT
 
 	# Count Initial Votes
 	for i in list_of_lists:

@@ -1,6 +1,12 @@
 # Actual Voting Functions
 
 def vote_3(position_name, candidates, vote_cols, spreadsheet):
+	"""vote_3: Implementation of the Instant Runoff Voting Algorithm
+	position_name (string): name of the position or office
+	candidates (string[]): list of possible candidate choices
+	vote_cols (int[]): spreadsheet columns to look at
+	spreadsheet (string[][]): final votes
+	"""
 	# Setup
 	winner = ["Your new", position_name, "is:", "", "with", "", "votes (out of", ""]
 	votes = {candidates[0]:0, candidates[1]:0, candidates[2]:0}

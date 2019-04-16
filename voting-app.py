@@ -10,7 +10,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', s
 client = gspread.authorize(creds)
 # Find a workbook by name and open the first sheet
 # Make sure you use the right name here
-WORKBOOK_NAME = "Voting Form (Responses)"
+WORKBOOK_NAME = "POH E-BOARD 2019 Voting (Responses)"
 
 if __name__ == "__main__":
 	# Open the first sheet
@@ -27,19 +27,33 @@ if __name__ == "__main__":
 		if s.title() not in names and not any(char in invalidChars for char in s):
 			names.append(s.title())
 	
+	print(names)
+	print("Press any key to continue")
+	temp = input()
+	
 	# Temporary; if you have any names you don't want to accept, enter them here
 	blacklist = []
 
 	# Final counted votes
 	final_votes = [i for i in list_1 if (i[1].title() not in blacklist and i[1].title() in names)] # remove
 
-	candidates_a = ["Candidate A", "Candidate B", "Candidate C"]
-	vote_cols_a = [2, 3, 4]
-	result_a = voteFuncs.vote_3("Position A", candidates_a, vote_cols_a, final_votes)
+	ec_candidates = ['Andrew Jreza', 'Justin Wu']
+	ec_vote_cols = [2]
+	ec_result = voteFuncs.vote_2("Event Coordinator", ec_candidates, ec_vote_cols, final_votes)
 
-	candidates_b = ["Candidate D", "Candidate E"]
-	vote_cols_b = [5]
-	result_b = voteFuncs.vote_2("Position B", candidates_b, vote_cols_b, final_votes)
+	ePR_candidates = ['Marie Guanzon', 'Andrew Jreza', 'JD Pacamarra']
+	ePR_vote_cols = [3, 4, 5]
+	ePR_result = voteFuncs.vote_3("External PR", ePR_candidates, ePR_vote_cols, final_votes)
 
-	print(result_a)
-	print(result_b)
+	# TODO: Implement vote_4
+	# iPR_candidates = ['Marie Guanzon', 'Mara Lopez', 'David Luu', 'Andy + Raymond']
+	# iPR_vote_cols = [6, 7, 8, 9]
+	# iPR_result = voteFuncs.vote_4("Internal PR", iPR_candidates, iPR_vote_cols, final_votes)
+
+	vp_candidates = ['Sam Hidalgo', 'Noemie Li']
+	vp_vote_cols = [10]
+	vp_result = voteFuncs.vote_2("Vice President", vp_candidates, vp_vote_cols, final_votes)
+
+	print(ec_result)
+	print(ePR_result)
+	print(vp_result)

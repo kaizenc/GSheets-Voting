@@ -8,12 +8,50 @@ def vote_3(position_name, candidates, vote_cols, spreadsheet):
 	spreadsheet (string[][]): final votes
 	"""
 	# Setup
-	winner = ["Your new", position_name, "is:", "", "with", "", "votes (out of", ""]
 	votes = {candidates[0]:0, candidates[1]:0, candidates[2]:0}
 	num_of_votes = 0
-	col1 = vote_cols[0]
-	col2 = vote_cols[1]
 
+	list_of_lists = [i for i in spreadsheet if (i[1].title() not in candidates and i[vote_cols[0]]!="")]
+
+	# Count Initial Votes
+	for i in list_of_lists:
+		for j, col in enumerate(vote_cols):
+			if i[col] == 'First':
+				votes[candidates[j]] +=1
+		num_of_votes +=1
+
+	# Print winner if majority+
+	possible_winner= max(votes, key=votes.get)
+	if votes[possible_winner] >= num_of_votes/2:
+		winner_votes = str(votes[possible_winner])
+		return f'Your new {position_name} is {possible_winner} with {winner_votes} votes (out of {num_of_votes})'
+
+	# Remove loser
+	loser = min(votes, key=votes.get)
+	del votes[loser]
+	ix_of_loser = 0
+	for i, name in enumerate(candidates):
+		if name == loser:
+			ix_of_loser = vote_cols[i]
+			break
+
+	# Runoff Count
+	list_of_lists = [x for x in list_of_lists if x[ix_of_loser] == 'First']
+	for i in list_of_lists:
+		for j, col in enumerate(vote_cols):
+			if i[col] == 'Second':
+				votes[candidates[j]] +=1
+
+	# Print winner
+	winner = max(votes, key=votes.get)
+	winner_votes = str(votes[winner])
+	return f'Your new {position_name} is {winner} with {winner_votes} votes (out of {num_of_votes})'
+
+def vote_2(position_name, candidates, vote_col, spreadsheet):
+	# Setup
+	votes = {candidates[0]:0, candidates[1]:0}
+	num_of_votes = 0
+	col1 = vote_col[0]
 	list_of_lists = [i for i in spreadsheet if (i[1].title() not in candidates and i[col1]!="")]
 
 	# Count Initial Votes
@@ -23,51 +61,10 @@ def vote_3(position_name, candidates, vote_cols, spreadsheet):
 				votes[key] +=1
 		num_of_votes +=1
 
-	winner[-1] = str(num_of_votes)+")"
-
-	# Print winner if majority+
-	possible_max = max(votes, key=votes.get)
-	if votes[possible_max] >= num_of_votes/2:
-		winner[3] = possible_max
-		winner[5] = str(votes[possible_max])
-		return winner
-
-	# Remove loser
-	loser = min(votes, key=votes.get)
-	del votes[loser]
-
-	# Runoff Count
-	for i in list_of_lists:
-		for key in votes:
-			if i[col1] == loser and i[col2] == key:
-				votes[key] +=1
-
-	# Print winner
-	winner[3] = max(votes, key=votes.get)
-	winner[5] = str(votes[winner[3]])
-	return winner
-
-def vote_2(position_name, candidates, vote_col, spreadsheet):
-	# Setup
-	winner = ["Your new", position_name, "is:", "", "with", "", "votes (out of", ""]
-	votes = {candidates[0]:0, candidates[1]:0}
-	num_of_votes = 0
-	col1 = vote_col[0]
-	list_of_lists = [i for i in spreadsheet if (i[2].title() not in candidates and i[col1]!="")]
-
-	# Count Initial Votes
-	for i in list_of_lists:
-		for key in votes:
-			if i[col1] == key:
-				votes[key] +=1
-		num_of_votes +=1
-
-	winner[-1] = str(num_of_votes)+")"
-
 	# Print Winner
-	winner[3] = max(votes, key=votes.get)
-	winner[5] = str(votes[winner[3]])
-	return winner
+	winner = max(votes, key=votes.get)
+	winner_votes = str(votes[winner])
+	return f'Your new {position_name} is {winner} with {winner_votes} votes (out of {num_of_votes})'
 
 def load_names(filename, names):
 	fh = open(filename, "w")

@@ -39,6 +39,10 @@ if __name__ == "__main__":
 	# Final counted votes
 	final_votes = [i for i in list_1 if (i[1].title() not in blacklist and i[1].title() in names)] # remove
 
+	print([i[1] for i in final_votes])
+	print("Press any key to continue")
+	temp = input()
+
 	first_row = list_1[0]
 	regEx = "\[(.*?)\]"
 

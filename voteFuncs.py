@@ -3,7 +3,7 @@ import re
 # Actual Voting Functions
 def vote_4(position_name, candidates, vote_cols, spreadsheet):
 	# Setup
-	votes = {candidates[0]:0, candidates[1]:0, candidates[2]:0}
+	votes = {candidates[0]:0, candidates[1]:0, candidates[2]:0, candidates[3]:0}
 	num_of_votes = 0
 
 	list_of_lists = [i for i in spreadsheet if (i[1].title() not in candidates and i[vote_cols[0]]!="")]
@@ -18,6 +18,7 @@ def vote_4(position_name, candidates, vote_cols, spreadsheet):
 	# Print winner if majority+
 	possible_winner= max(votes, key=votes.get)
 	if votes[possible_winner] >= num_of_votes/2:
+		print(votes)
 		winner_votes = str(votes[possible_winner])
 		return f'Your new {position_name} is {possible_winner} with {winner_votes} votes (out of {num_of_votes})'
 
@@ -40,6 +41,7 @@ def vote_4(position_name, candidates, vote_cols, spreadsheet):
 	# Print winner if majority+
 	possible_winner= max(votes, key=votes.get)
 	if votes[possible_winner] >= num_of_votes/2:
+		print(votes)
 		winner_votes = str(votes[possible_winner])
 		return f'Your new {position_name} is {possible_winner} with {winner_votes} votes (out of {num_of_votes})'
 
@@ -60,6 +62,7 @@ def vote_4(position_name, candidates, vote_cols, spreadsheet):
 				votes[candidates[j]] +=1
 
 	# Print winner
+	print(votes)
 	winner = max(votes, key=votes.get)
 	winner_votes = str(votes[winner])
 	return f'Your new {position_name} is {winner} with {winner_votes} votes (out of {num_of_votes})'
@@ -88,6 +91,7 @@ def vote_3(position_name, candidates, vote_cols, spreadsheet):
 	# Print winner if majority+
 	possible_winner= max(votes, key=votes.get)
 	if votes[possible_winner] >= num_of_votes/2:
+		print(votes)
 		winner_votes = str(votes[possible_winner])
 		return f'Your new {position_name} is {possible_winner} with {winner_votes} votes (out of {num_of_votes})'
 
@@ -108,6 +112,7 @@ def vote_3(position_name, candidates, vote_cols, spreadsheet):
 				votes[candidates[j]] +=1
 
 	# Print winner
+	print(votes)
 	winner = max(votes, key=votes.get)
 	winner_votes = str(votes[winner])
 	return f'Your new {position_name} is {winner} with {winner_votes} votes (out of {num_of_votes})'
@@ -127,6 +132,7 @@ def vote_2(position_name, candidates, vote_col, spreadsheet):
 		num_of_votes +=1
 
 	# Print Winner
+	print(votes)
 	winner = max(votes, key=votes.get)
 	winner_votes = str(votes[winner])
 	return f'Your new {position_name} is {winner} with {winner_votes} votes (out of {num_of_votes})'

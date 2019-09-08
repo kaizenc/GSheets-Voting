@@ -34,7 +34,7 @@ if __name__ == "__main__":
 	temp = input()
 	
 	# Temporary; if you have any names you don't want to accept, enter them here
-	blacklist = ['']
+	blacklist = ['', 'Samantha Hidalgo']
 
 	# Final counted votes
 	final_votes = [i for i in list_1 if (i[1].title() not in blacklist and i[1].title() in names)] # remove
